@@ -1,0 +1,315 @@
+---
+title: "STEM Meets Storytelling: Day 1"
+subtitle: "Pathways to Science 2022"
+author: "Dr. Mary Ryan"
+date: "`r format(Sys.time(),'%B %d, %Y')`"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: ""
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = TRUE,
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+
+```{css, echo=F}
+table {
+  font-size: 12px;
+}
+```
+
+```{r load libraries, include=FALSE}
+if(!require("pacman")) install.packages("pacman")
+
+p_load(DT,patchwork,latex2exp,xaringanExtra,xaringanthemer,RColorBrewer)
+```
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  header_font_google = google_font("Cabin", "600"),
+  text_font_google   = google_font("Noto Sans", "300", "300i"),
+  primary_color = "#0f4d92",
+  secondary_color = "#FF961C",
+  inverse_header_color = "#FFFFFF"
+)
+```
+
+## What is data?
+
+- 
+
+---
+
+## Data parts
+
+- Observation
+
+  - The smallest unit we're collecting data on
+    
+    - i.e., Person, state, country, company
+
+--
+
+- Variable
+
+  - One of the questions we're collecting about our observation
+  
+    - i.e., Age, gender, income, existing health conditions, favorite music
+
+--
+
+- Value
+
+  - The answer to the question we're asking our observation
+  
+    - i.e, 15 years old, female, $30,000, none, k-pop
+
+---
+
+## Types of variables
+
+- Quantitative variables
+
+--
+
+  - Numbers!
+  
+--
+  
+  - Discrete (numbers only occur in "jumps")
+  
+  - Continuous (fractions/decimals OK)
+  
+--
+
+- Qualitative variables
+
+--
+
+  - Word descriptions!
+  
+--
+  
+  - Categorical (no order to descriptions)
+  
+  - Ordinal (descriptions have order/ranking)
+
+---
+
+## Activity!
+
+- Groups of 2 or 3
+
+- Gather data about your group members
+
+  - What's their name?
+  
+  - How old are they?
+  
+  - What's their favorite food?
+  
+  - What are their hobbies?
+  
+  - What school do they go to?
+  
+  - What city do they live in?
+  
+  - How many siblings do they have?
+
+- Which questions give you *quantitative* answers? Which ones give you *qualitative* answers?
+
+---
+
+## Empirical Data vs Anecdotes
+
+.pull-left[
+
+- Anecdotal evidence: story/account/claim from a single source
+  
+  - Depends on exact circumstances - might changes from source to source
+  
+- Empirical data/evidence: information from several sources
+
+  - If something is true, will probably see same thing reported by multiple sources
+
+]
+
+.pull-right[
+
+![](anecdote.gif)
+
+]
+
+---
+
+## Public Data
+
+- Much data is collected and used privately or for a price
+
+  - Companies
+  
+- Some data is public, though
+
+  - Often collected by the government (federal/state/local)
+
+---
+
+## Public Data
+
+- Federal public data sources
+
+  - U.S. Census Bureau/American Community Survey
+
+  - Bureau of Labor Statistics
+  
+  - National Center for Education Statistics
+  
+  - Environmental Protection Agency
+  
+- State-level public data sources
+
+  - CT Department of Transportation/DMV
+  
+  - CT Department of Agriculture
+  
+  - [CT Department of Public Health](https://portal.ct.gov/DPH)
+  
+- Local public data sources
+
+  - [City of New Haven](https://www.newhavenct.gov/cityservices/records/default.htm)
+  
+  - [DataHaven](https://www.ctdatahaven.org/)
+  
+---
+
+## Public Data
+
+- Not all public data is easy to access/available on the internet
+
+  - Old paper records not digitized
+  
+  - Too expensive to put in one big place
+
+- Different states have different "open records" or "open meeting" laws - AKA "sunshine" laws
+
+  - Who can ask for access to what data for what reasons
+
+- Connecticut Freedom of Information Act
+
+  - Any recorded data/information relating to the conduct of the public’s business prepared, owned, used, received, or retained by a public agency, or to which a public agency is entitled to receive a copy by law or contract
+
+  - Anyone may request public records - no reason needed
+  
+  - No restrictions on the use of the records
+  
+---
+
+## Data to tell community stories
+
+.pull-left[
+
+- Black Snow: Big Sugar’s Burning Problem via The Palm Beach Post
+
+  - [https://projects.propublica.org/black-snow/](https://projects.propublica.org/black-snow/)
+  
+  - Collect own air quality measurements to check claims by local sugar company that sugarcane burning is not a threat to public health
+
+]
+  
+    
+.pull-right[
+![](sugarcane-pbp.png)
+
+]
+
+---
+
+## Data to tell community stories
+
+.pull-left[
+
+- Last Words via The Boston Globe
+
+  - [https://apps.bostonglobe.com/metro/investigations/spotlight/2020/09/last-words/](https://apps.bostonglobe.com/metro/investigations/spotlight/2020/09/last-words/)
+  
+  - Using data from death certificates and surveys to show how race and income determine 
+    
+    - how and why Massachusetts residents die
+    
+    - how those factors affect the quality/length of life and access to care
+
+]
+
+.pull-right[
+![](death-bg.png)
+]
+
+---
+
+## Data to tell community stories
+  
+.pull-left[
+  
+- Heat and Health in American Cities via NPR
+
+  - [https://www.npr.org/2019/09/03/754044732/as-rising-heat-bakes-u-s-cities-the-poor-often-feel-it-most](https://www.npr.org/2019/09/03/754044732/as-rising-heat-bakes-u-s-cities-the-poor-often-feel-it-most)
+  
+  - Is there a relationship between the hottest parts of a city and where people live by income?
+
+]
+  
+.pull-right[
+![](oakland-npr.png)
+
+]
+
+---
+
+## Community data to community stories
+
+- Looking at raw data like looking at anecdotes
+
+  - Difficult to see patterns
+  
+- Need to summarize to get the big picture
+
+- Computers can help us keep track of lots of data
+
+---
+
+## R Project
+
+.pull-left[
+
+- R is a coding language specifically made for handling data, computing statistics, and creating data visualization
+
+- Free and open source
+
+  - New code is created/edited by users and given without cost to other users
+  
+- Makes it easy to *reproduce* what we do to the data
+
+]
+
+.pull-right[
+
+![](Rlogo.svg)
+
+]

@@ -1,0 +1,34 @@
+Data is everywhere, but what is it telling us about our communities? We'll learn how to visualize and analyze local data, and communicate the story underneath in hands-on data science activities.
+
+Are you interested in data and computer programming? Want to know how you can use these skills to tell stories about your community? Join us for a STEM-meets-storytelling workshop to dive into some Connecticut public data and learn how to craft compelling data visualizations and analyses.
+
+This workshop is aimed at introducing high-school students to basic statistical concepts and coding by exploring real-world data and gaining first-hand experience in data analysis and visualization. The end-goal will for students to create at least one data visualization (graph, map, etc.) using Connecticut public data and write a short blog post on the story that data tells.
+
+DAY 1:
+	1. Introduction to Public Data and Storytelling
+	- Brief lecture on where you can find public data, and how it's used to tell stories about communities
+        2. Introduction to R	
+	- Basic usage of RStudio and commands such as opening, writing, and closing scripts, changing directories, loading data files, and using variables via RStudio Cloud and interactive web slides
+
+DAY 2:
+	3. Tidy Data 
+	- Lecture on tidy data structure, data reformatting, and variable creation to make data analyses and visualizations
+	4. Hands-on session  
+	- Students will perform some simple data cleaning and reshaping on Connecticut public data
+ 
+DAY 3:
+	5. Data Summarization
+	- Lecture on basic statistical concepts like means, medians, and variation and explain how these help us make sense of data and tells stories
+	6. Hands-on session 
+	- Students will perform data summarization on Connecticut public data they cleaned the previous day
+
+DAY 4:
+	7. Data Visualization
+	- Basic types of data visualization, what types of data they can be used with, and what they are useful for explaining
+	8. Hands-on session 
+	- Students will create their own data visualizations using data they cleaned and summarized previously
+
+DAY 5:
+	9. Tell Us A Story
+	- We will incorporate some new public data files and see how this information fits in with the summarization and visualization we have performed previously
+	- Students have the opportunity to write short "stories"/blog posts on what we've discussed and the statistical visualizations and summarizations they've created

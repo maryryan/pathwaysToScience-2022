@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STEM Meets Storytelling: Day 1</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Mary Ryan" />
+    <meta name="date" content="2022-03-25" />
+    <script src="PTS-2022-day1-slides_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# STEM Meets Storytelling: Day 1
+## Pathways to Science 2022
+### Dr. Mary Ryan
+### March 25, 2022
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+table {
+  font-size: 12px;
+}
+&lt;/style&gt;
+
+
+
+
+
+## What is data?
+
+- 
+
+---
+
+## Data parts
+
+- Observation
+
+  - The smallest unit we're collecting data on
+    
+    - i.e., Person, state, country, company
+
+--
+
+- Variable
+
+  - One of the questions we're collecting about our observation
+  
+    - i.e., Age, gender, income, existing health conditions, favorite music
+
+--
+
+- Value
+
+  - The answer to the question we're asking our observation
+  
+    - i.e, 15 years old, female, $30,000, none, k-pop
+
+---
+
+## Types of variables
+
+- Quantitative variables
+
+--
+
+  - Numbers!
+  
+--
+  
+  - Discrete (numbers only occur in "jumps")
+  
+  - Continuous (fractions/decimals OK)
+  
+--
+
+- Qualitative variables
+
+--
+
+  - Word descriptions!
+  
+--
+  
+  - Categorical (no order to descriptions)
+  
+  - Ordinal (descriptions have order/ranking)
+
+---
+
+## Activity!
+
+- Groups of 2 or 3
+
+- Gather data about your group members
+
+  - What's their name?
+  
+  - How old are they?
+  
+  - What's their favorite food?
+  
+  - What are their hobbies?
+  
+  - What school do they go to?
+  
+  - What city do they live in?
+  
+  - How many siblings do they have?
+
+- Which questions give you *quantitative* answers? Which ones give you *qualitative* answers?
+
+---
+
+## Empirical Data vs Anecdotes
+
+.pull-left[
+
+- Anecdotal evidence: story/account/claim from a single source
+  
+  - Depends on exact circumstances - might changes from source to source
+  
+- Empirical data/evidence: information from several sources
+
+  - If something is true, will probably see same thing reported by multiple sources
+
+]
+
+.pull-right[
+
+![](anecdote.gif)
+
+]
+
+---
+
+## Public Data
+
+- Much data is collected and used privately or for a price
+
+  - Companies
+  
+- Some data is public, though
+
+  - Often collected by the government (federal/state/local)
+
+---
+
+## Public Data
+
+- Federal public data sources
+
+  - U.S. Census Bureau/American Community Survey
+
+  - Bureau of Labor Statistics
+  
+  - National Center for Education Statistics
+  
+  - Environmental Protection Agency
+  
+- State-level public data sources
+
+  - CT Department of Transportation/DMV
+  
+  - CT Department of Agriculture
+  
+  - [CT Department of Public Health](https://portal.ct.gov/DPH)
+  
+- Local public data sources
+
+  - [City of New Haven](https://www.newhavenct.gov/cityservices/records/default.htm)
+  
+  - [DataHaven](https://www.ctdatahaven.org/)
+  
+---
+
+## Public Data
+
+- Not all public data is easy to access/available on the internet
+
+  - Old paper records not digitized
+  
+  - Too expensive to put in one big place
+
+- Different states have different "open records" or "open meeting" laws - AKA "sunshine" laws
+
+  - Who can ask for access to what data for what reasons
+
+- Connecticut Freedom of Information Act
+
+  - Any recorded data/information relating to the conduct of the public’s business prepared, owned, used, received, or retained by a public agency, or to which a public agency is entitled to receive a copy by law or contract
+
+  - Anyone may request public records - no reason needed
+  
+  - No restrictions on the use of the records
+  
+---
+
+## Data to tell community stories
+
+.pull-left[
+
+- Black Snow: Big Sugar’s Burning Problem via The Palm Beach Post
+
+  - [https://projects.propublica.org/black-snow/](https://projects.propublica.org/black-snow/)
+  
+  - Collect own air quality measurements to check claims by local sugar company that sugarcane burning is not a threat to public health
+
+]
+  
+    
+.pull-right[
+![](sugarcane-pbp.png)
+
+]
+
+---
+
+## Data to tell community stories
+
+.pull-left[
+
+- Last Words via The Boston Globe
+
+  - [https://apps.bostonglobe.com/metro/investigations/spotlight/2020/09/last-words/](https://apps.bostonglobe.com/metro/investigations/spotlight/2020/09/last-words/)
+  
+  - Using data from death certificates and surveys to show how race and income determine 
+    
+    - how and why Massachusetts residents die
+    
+    - how those factors affect the quality/length of life and access to care
+
+]
+
+.pull-right[
+![](death-bg.png)
+]
+
+---
+
+## Data to tell community stories
+  
+.pull-left[
+  
+- Heat and Health in American Cities via NPR
+
+  - [https://www.npr.org/2019/09/03/754044732/as-rising-heat-bakes-u-s-cities-the-poor-often-feel-it-most](https://www.npr.org/2019/09/03/754044732/as-rising-heat-bakes-u-s-cities-the-poor-often-feel-it-most)
+  
+  - Is there a relationship between the hottest parts of a city and where people live by income?
+
+]
+  
+.pull-right[
+![](oakland-npr.png)
+
+]
+
+---
+
+## Community data to community stories
+
+- Looking at raw data like looking at anecdotes
+
+  - Difficult to see patterns
+  
+- Need to summarize to get the big picture
+
+- Computers can help us keep track of lots of data
+
+---
+
+## R Project
+
+.pull-left[
+
+- R is a coding language specifically made for handling data, computing statistics, and creating data visualization
+
+- Free and open source
+
+  - New code is created/edited by users and given without cost to other users
+  
+- Makes it easy to *reproduce* what we do to the data
+
+]
+
+.pull-right[
+
+![](Rlogo.svg)
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
