@@ -1,0 +1,244 @@
+---
+title: "STEM Meets Storytelling: Day 2"
+subtitle: "Pathways to Science 2022"
+author: "Dr. Mary Ryan"
+date: "July 19, 2022"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    seal: false
+    nature:
+      slideNumberFormat: ""
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+
+```{css, echo=F, eval=F}
+table {
+  font-size: 12px;
+}
+```
+
+```{r load libraries, include=FALSE}
+if(!require("pacman")) install.packages("pacman")
+
+p_load(DT,patchwork,latex2exp,xaringanExtra,xaringanthemer,RColorBrewer,janitor,countdown)
+```
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  header_font_google = google_font("Cabin", "600"),
+  text_font_google   = google_font("Noto Sans", "300", "300i"),
+  primary_color = "#0f4d92",
+  secondary_color = "#FF961C",
+  inverse_header_color = "#FFFFFF"
+)
+```
+
+```{r xaringan-editable, echo=FALSE}
+xaringanExtra::use_editable(expires = 1)
+```
+
+background-image: linear-gradient(to bottom, rgba(255,255,255,0)0%, rgba(255,255,255,0.2)10%, rgba(255,255,255,1)100%), url("https://ysm-res.cloudinary.com/image/upload/w_850/c_scale,e_blur:1700,u_v1:websites4:live-prod:ysph:about-school-of-public-health:communications-public-relations:photo-galleries:history:Yale-resized_74630_49441_v9,w_850,h_576/v1/websites4/live-prod/ysph/about-school-of-public-health/communications-public-relations/photo-galleries/history/Yale-resized_74630_49441_v9.JPG")
+background-size: cover
+
+
+class: bottom
+
+.pull-left[
+
+<br>
+# STEM Meets Storytelling: Day 2
+### Pathways to Science 2022
+
+]
+
+.right[
+
+<br>
+<br>
+<br>
+<br>
+<br>
+### Dr. Mary Ryan
+### July 19, 2022
+
+]
+
+---
+
+## One thing to learn today
+
+<br>
+<br>
+<br>
+<br>
+<br>
+.center[
+### Data is tidy when every column is a variable, every row is an observation, and every cell is a single value
+]
+
+
+---
+
+## Review: What is data?
+
+- A collection of information, facts, or observations for reference or analysis
+
+--
+
+.pull-left[
+- Made up of:
+
+  - Observations
+
+      - The smallest unit we're collecting data on
+
+  - Variables
+
+      - One of the questions we're collecting about our observation
+  
+  - Values
+
+      - The answer to the question we're asking our observation
+]
+
+--
+
+.pull-right[
+- Quantitative variables: numbers!
+  
+  - Discrete (numbers only occur in "jumps")
+  
+  - Continuous (fractions/decimals OK)
+
+- Qualitative variables: word descriptions!
+  
+  - Categorical (no order to descriptions)
+  
+  - Ordinal (descriptions have order/ranking)
+]
+
+---
+
+## Data needs structure
+
+---
+
+## Principles of tidy data
+
+.pull-left[
+1. Every column is a variable
+
+2. Every row is an observation
+
+3. Every cell is a single value
+]
+
+.pull-right[
+.center[
+![](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)
+]
+]
+---
+
+## What's wrong with this data?
+
+```{r tidy data example}
+grades.df <- cbind(rep(seq(3),each=4),
+                   rep(c("Math","Writing"),each=2,3),
+                   rep(c(2008,2009),6),
+                   c(15,12,22,10,12,16,13,23,11,13,17,14),
+                   c(16,13,22,14,13,14,11,20,12,11,12,9),
+                   c(19,27,24,20,25,21,29,26,22,27,23,31))
+colnames(grades.df) <- c("student ID","testSubject","year","Fall","spring","Winter")
+
+grades.df %>% 
+  as.data.frame() %>% 
+    datatable(
+    options = list(
+      scrollY = 350,
+      #pageLength = 100,
+      dom = "t",
+      ordering = FALSE,
+      columnDefs = list(list(className = 'dt-left', targets = "_all"))
+    ),
+    rownames=FALSE
+  )
+
+```
+
+
+--
+
+- `Fall`, `spring` and `Winter` aren't really separate variables
+
+--
+
+- Column naming isn't consistent
+
+---
+
+## Recipe for tidy data
+
+- Tidying data is like baking cupcakes
+
+  - Some steps definitely need to come before others (mix your ingredients vs. baking)
+  
+  - But other steps it doesn't (really) matter if you do one before the other (adding vanilla vs. adding oil)
+  
+---
+
+## Recipe for tidy data
+
+<div style="position:fixed; right:150px; top:25px">
+<img src="https://media.giphy.com/media/FbbRaTLzKXzA3K1q8U/giphy.gif", width="150"/>
+</div>
+
+.pull-left[
+1. Organize your ingredients on the counter (variables)
+
+  - Get an overview of what you're working with using `glimpse()`
+  
+  - Clean up your variable names using `clean_names()` (from the `janitor` package)
+
+  - Use `pivot_longer()` or `pivot_wider()` to makes sure every column is a variable and every row is an observation
+  
+]
+
+.pull-right[
+<ol start="2">
+  <li>Mix together your ingredients</li>
+  <ul>
+    <li>Use <code  class="r">`</code><code class="r">arrange()`</code> if you need your observations in ascending/descending order to manipulate them</li>
+    <li>Create whatever new variables you need to with <code  class="r">`</code><code class="r">mutate()`</code> - this should always come <strong>AFTER</strong> you do all your other cleaning</li>
+  </ul>
+
+  <li>Scoop batter into cupcake tins</li>
+  <ul>
+    <li>Use <code  class="r">`</code><code class="r">select()`</code>/<code  class="r">`</code><code class="r">filter()`</code> keep the variables/rows you need or get rid of the variables/rows you don't</li>
+  </ul>
+
+  <li>Bake your cupcakes (dataset)</li>
+  <ul>
+    <li>Save your cleaned dataset with a new name!</li>
+  </ul>
+</ol>
+]

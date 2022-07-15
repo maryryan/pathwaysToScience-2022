@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STEM Meets Storytelling: Day 2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Mary Ryan" />
+    <meta name="date" content="2022-07-19" />
+    <script src="PTS-2022-day2-slides_files/header-attrs/header-attrs.js"></script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xb400042eff24cf6a3c83fd6216ce564","expires":1}</script>
+    <script src="PTS-2022-day2-slides_files/himalaya/himalaya.js"></script>
+    <script src="PTS-2022-day2-slides_files/js-cookie/js.cookie.js"></script>
+    <link href="PTS-2022-day2-slides_files/editable/editable.css" rel="stylesheet" />
+    <script src="PTS-2022-day2-slides_files/editable/editable.js"></script>
+    <script src="PTS-2022-day2-slides_files/htmlwidgets/htmlwidgets.js"></script>
+    <link href="PTS-2022-day2-slides_files/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="PTS-2022-day2-slides_files/datatables-binding/datatables.js"></script>
+    <script src="PTS-2022-day2-slides_files/jquery/jquery-3.6.0.min.js"></script>
+    <link href="PTS-2022-day2-slides_files/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="PTS-2022-day2-slides_files/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="PTS-2022-day2-slides_files/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="PTS-2022-day2-slides_files/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="PTS-2022-day2-slides_files/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+
+
+
+
+
+
+background-image: linear-gradient(to bottom, rgba(255,255,255,0)0%, rgba(255,255,255,0.2)10%, rgba(255,255,255,1)100%), url("https://ysm-res.cloudinary.com/image/upload/w_850/c_scale,e_blur:1700,u_v1:websites4:live-prod:ysph:about-school-of-public-health:communications-public-relations:photo-galleries:history:Yale-resized_74630_49441_v9,w_850,h_576/v1/websites4/live-prod/ysph/about-school-of-public-health/communications-public-relations/photo-galleries/history/Yale-resized_74630_49441_v9.JPG")
+background-size: cover
+
+
+class: bottom
+
+.pull-left[
+
+&lt;br&gt;
+# STEM Meets Storytelling: Day 2
+### Pathways to Science 2022
+
+]
+
+.right[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+### Dr. Mary Ryan
+### July 19, 2022
+
+]
+
+---
+
+## One thing to learn today
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.center[
+### Data is tidy when every column is a variable, every row is an observation, and every cell is a single value
+]
+
+
+---
+
+## Review: What is data?
+
+- A collection of information, facts, or observations for reference or analysis
+
+--
+
+.pull-left[
+- Made up of:
+
+  - Observations
+
+      - The smallest unit we're collecting data on
+
+  - Variables
+
+      - One of the questions we're collecting about our observation
+  
+  - Values
+
+      - The answer to the question we're asking our observation
+]
+
+--
+
+.pull-right[
+- Quantitative variables: numbers!
+  
+  - Discrete (numbers only occur in "jumps")
+  
+  - Continuous (fractions/decimals OK)
+
+- Qualitative variables: word descriptions!
+  
+  - Categorical (no order to descriptions)
+  
+  - Ordinal (descriptions have order/ranking)
+]
+
+---
+
+## Data needs structure
+
+---
+
+## Principles of tidy data
+
+.pull-left[
+1. Every column is a variable
+
+2. Every row is an observation
+
+3. Every cell is a single value
+]
+
+.pull-right[
+.center[
+![](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)
+]
+]
+---
+
+## What's wrong with this data?
+
+<div id="htmlwidget-7d11aaf569bc3fc121ed" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7d11aaf569bc3fc121ed">{"x":{"filter":"none","vertical":false,"data":[["1","1","1","1","2","2","2","2","3","3","3","3"],["Math","Math","Writing","Writing","Math","Math","Writing","Writing","Math","Math","Writing","Writing"],["2008","2009","2008","2009","2008","2009","2008","2009","2008","2009","2008","2009"],["15","12","22","10","12","16","13","23","11","13","17","14"],["16","13","22","14","13","14","11","20","12","11","12","9"],["19","27","24","20","25","21","29","26","22","27","23","31"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>student ID<\/th>\n      <th>testSubject<\/th>\n      <th>year<\/th>\n      <th>Fall<\/th>\n      <th>spring<\/th>\n      <th>Winter<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollY":350,"dom":"t","ordering":false,"columnDefs":[{"className":"dt-left","targets":"_all"}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+
+
+--
+
+- `Fall`, `spring` and `Winter` aren't really separate variables
+
+--
+
+- Column naming isn't consistent
+
+---
+
+## Recipe for tidy data
+
+- Tidying data is like baking cupcakes
+
+  - Some steps definitely need to come before others (mix your ingredients vs. baking)
+  
+  - But other steps it doesn't (really) matter if you do one before the other (adding vanilla vs. adding oil)
+  
+---
+
+## Recipe for tidy data
+
+&lt;div style="position:fixed; right:150px; top:25px"&gt;
+&lt;img src="https://media.giphy.com/media/FbbRaTLzKXzA3K1q8U/giphy.gif", width="150"/&gt;
+&lt;/div&gt;
+
+.pull-left[
+1. Organize your ingredients on the counter (variables)
+
+  - Get an overview of what you're working with using `glimpse()`
+  
+  - Clean up your variable names using `clean_names()` (from the `janitor` package)
+
+  - Use `pivot_longer()` or `pivot_wider()` to makes sure every column is a variable and every row is an observation
+  
+]
+
+.pull-right[
+&lt;ol start="2"&gt;
+  &lt;li&gt;Mix together your ingredients&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Use &lt;code  class="r"&gt;`&lt;/code&gt;&lt;code class="r"&gt;arrange()`&lt;/code&gt; if you need your observations in ascending/descending order to manipulate them&lt;/li&gt;
+    &lt;li&gt;Create whatever new variables you need to with &lt;code  class="r"&gt;`&lt;/code&gt;&lt;code class="r"&gt;mutate()`&lt;/code&gt; - this should always come &lt;strong&gt;AFTER&lt;/strong&gt; you do all your other cleaning&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;li&gt;Scoop batter into cupcake tins&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Use &lt;code  class="r"&gt;`&lt;/code&gt;&lt;code class="r"&gt;select()`&lt;/code&gt;/&lt;code  class="r"&gt;`&lt;/code&gt;&lt;code class="r"&gt;filter()`&lt;/code&gt; keep the variables/rows you need or get rid of the variables/rows you don't&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;li&gt;Bake your cupcakes (dataset)&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Save your cleaned dataset with a new name!&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/ol&gt;
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

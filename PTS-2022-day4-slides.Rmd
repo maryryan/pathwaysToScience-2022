@@ -1,0 +1,411 @@
+---
+title: "STEM Meets Storytelling: Day 4"
+subtitle: "Pathways to Science 2022"
+author: "Dr. Mary Ryan"
+date: "July 20, 2022"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    seal: false
+    nature:
+      slideNumberFormat: ""
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+
+```{css, echo=F, eval=FALSE}
+table {
+  font-size: 12px;
+}
+```
+
+```{r load libraries, include=FALSE}
+if(!require("pacman")) install.packages("pacman")
+
+p_load(DT,patchwork,latex2exp,xaringanExtra,xaringanthemer,RColorBrewer,janitor,countdown)
+```
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  header_font_google = google_font("Cabin", "600"),
+  text_font_google   = google_font("Noto Sans", "300", "300i"),
+  primary_color = "#0f4d92",
+  secondary_color = "#FF961C",
+  inverse_header_color = "#FFFFFF"
+)
+```
+
+
+```{r xaringan-editable, echo=FALSE}
+xaringanExtra::use_editable(expires = 1)
+```
+
+background-image: linear-gradient(to bottom, rgba(255,255,255,0)0%, rgba(255,255,255,0.2)10%, rgba(255,255,255,1)100%), url("https://ysm-res.cloudinary.com/image/upload/w_850/c_scale,e_blur:1700,u_v1:websites4:live-prod:ysph:about-school-of-public-health:communications-public-relations:photo-galleries:history:Yale-resized_74630_49441_v9,w_850,h_576/v1/websites4/live-prod/ysph/about-school-of-public-health/communications-public-relations/photo-galleries/history/Yale-resized_74630_49441_v9.JPG")
+background-size: cover
+
+
+class: bottom
+
+.pull-left[
+
+<br>
+# STEM Meets Storytelling: Day 4
+### Pathways to Science 2022
+
+]
+
+.right[
+
+<br>
+<br>
+<br>
+<br>
+<br>
+### Dr. Mary Ryan
+### July 21, 2022
+
+]
+
+---
+
+## One thing to learn today
+
+<br>
+<br>
+<br>
+<br>
+<br>
+.center[
+### It is easier for people to read bar charts than pie graphs because it is easier to compare lengths of bars than areas of pie slices
+]
+
+---
+
+## Getting the big picture
+
+- Calculating summary statistics can be very helpful for getting the big picture of the entire dataset
+
+- Are there times where you think this might be difficult to communicate to others?
+
+.can-edit.key-graph[
+
+]
+
+--
+
+- It can be confusing if we're looking at many summary statistics or comparing summary statistics between many groups
+
+- Translating those summaries into a visualization or a graphic can help
+
+---
+
+## Types of data visualizations
+
+- What types of data visualizations or graphs have you heard of?
+
+--
+
+- Today we'll look at:
+
+  - Bar charts & pie charts
+  
+  - Histograms
+  
+  - Line charts
+  
+  - Scatter plots
+  
+  - Box plots
+  
+---
+
+## Bar chart
+
+.pull-left[
+- Good for comparing counts or percentages of categorical variables
+
+- Category names go on one axis (usually the bottom or x-axis)
+
+- Allows you to see difference in the size/percentage of a group by comparing bar lengths
+]
+
+.pull-right[
+```{r bar, fig.height=7}
+data(Titanic)
+
+survive <- Titanic %>% 
+  as.data.frame() %>% 
+  dplyr::filter(Survived=="Yes") %>% 
+  group_by(Class) %>% 
+  summarize(Freq=sum(Freq))
+die <- Titanic %>% 
+  as.data.frame() %>% 
+  dplyr::filter(Survived=="No") %>% 
+  group_by(Class) %>% 
+  summarize(Freq=sum(Freq))
+
+survive %>% 
+  mutate(pct_survive = Freq/(Freq + die$Freq)) %>%
+  ggplot(aes(x=Class,y=pct_survive))+
+  geom_bar(stat="identity")+
+  labs(y="% Survived")+
+  ggtitle("Survival Rates of Titanic Passengers")+
+  theme(text = element_text(size=24),
+        title = element_text(size=28))+
+  theme_minimal()
+
+```
+]
+
+---
+
+## Stacked bar chart
+
+- Used with 2 categorical variables
+
+  - i.e., types of issues and severity of issue
+  
+- One category goes on one axis
+
+- Percentage goes on other axis
+
+- Total bar height will always go up to 100%
+  
+  - Bar will be divided into percentages based on 2nd categorical variable
+  
+---
+
+# Pie charts
+
+.pull-left[
+- Similar to bar chart - also used to compare percentages of one categorical variable
+
+- No axes
+
+- Total circle = 100%
+
+- Each wedge/slice represents how much of a category makes up the whole
+]
+
+.pull-right[
+```{r starwars pie, echo=FALSE, message=FALSE, fig.height=9}
+data(starwars)
+starwars.count <- starwars %>% 
+   group_by(sex) %>% 
+   summarize(count = n()) %>% 
+   dplyr::filter(!(is.na(sex)))
+starwars.count %>% 
+   ggplot(aes(x="", y=count, fill=sex))+
+   geom_bar(width = 1, stat = "identity", color="white")+
+   coord_polar("y", start=0)+
+   geom_text(size=6, aes(label = paste0(round((count/sum(starwars.count[,2]))*100), "%")), position = position_stack(vjust = 0.6), color="white")+
+   ggtitle("Sex of characters in Star Wars movies")+
+   theme(plot.title = element_text(size=70),
+         legend.text = element_text(size=22),
+         legend.title = element_text(size=22))+
+   theme_void()
+```
+]
+
+---
+
+## Pie vs bar
+
+- Which is easier to read?
+
+--
+
+.center[
+<img src="https://images.squarespace-cdn.com/content/56713bf4dc5cb41142f28d1f/1450306657208-N3NFCZECC1X5Y7LKZXNS/devourThePie3.gif?content-type=image%2Fgif", width="600"/>
+]
+
+---
+
+## Scatter plot
+
+.pull-left[
+- Comparing 2 continuous variables
+
+  - One variable on each axis
+  
+  - Observation values shown as points
+]
+
+.pull-right[
+<img src="https://fivethirtyeight.com/wp-content/uploads/2020/04/paine-jordan-0416-1.png?w=1150"/>
+]
+---
+
+## Line plot
+
+.pull-left[
+- Comparing how a quantitative variable changes over time
+
+- Time on x-axis
+
+- Quantitative variable on y-axis
+]
+
+.pull-right[
+<img src="https://fivethirtyeight.com/wp-content/uploads/2020/06/SAWCHIK.MLBFans.0611-1.png?w=1150"/>
+]
+
+---
+
+## Histogram
+
+.pull-left[
+- Like a bar chart, but for continuous variables
+
+  - Each bar on a bar chart is for a specific category
+  
+- We cut up the continuous variable into evenly ranged groups
+
+  - Then each bar is for that group
+  
+  - We can increase the range of the groups to get fewer bars or decrease the range to get more bars
+  
+- Good for figuring out the shape of continuous data
+]
+
+.pull-right[
+<img src="https://static01.nyt.com/images/2018/11/27/learning/Mothers2LN/Mothers2LN-jumbo.png?quality=90&auto=webp"/>
+]
+
+---
+
+## Boxplot
+
+.pull-left[
+- Similar to histogram - used to look at range/shape of quantitative variable
+
+- Bottom line of box is 1st quartile
+
+- Top line of box is 3rd quartile
+
+- Line in middle of box is median
+
+- "Whiskers" extend to the minimum and maximum
+  
+  - Sometimes, if there are observations really far from the 1st and 3rd quartiles, the lines extend to the "outlier fence" and then dots show outlier observations
+  
+- Easy to compare a quantitative and categorical variable by making a separate box for quantitative observations in each category
+]
+
+.pull-right[
+```{r boxplot, fig.height=7}
+library(titanic)
+data(titanic_train)
+
+p_tit <- titanic_train %>% 
+   mutate(Pclass = factor(Pclass)) %>% 
+   mutate(Pclass = recode(Pclass, "1"="1st", "2"="2nd", "3"="3rd")) %>% 
+   ggplot(aes(y=Age, fill=Pclass))+
+   geom_boxplot()+
+   ggtitle("Age of passengers on the Titanic")+
+   guides(fill=guide_legend(title="Passenger Class"))+
+   theme_minimal()
+p_tit +
+   geom_label(aes(x=-0.3, y=25, label="Q1"), fill="white")+
+   geom_label(aes(x=-0.2, y=51, label="Q3"), fill="white")+
+   geom_label(aes(x=-0.25, y=40, label="Median"), fill="white")+
+   geom_label(aes(x=-0.18, y=80, label="Maximum"), fill="white")+
+   geom_label(aes(x=-0.32, y=0, label="Minimum"), fill="white")+
+   geom_label(aes(x=0.2, y=-0.05, label="Q1 - 1.5*IQR"), fill="white")+
+   geom_label(aes(x=0.28, y=51, label="Q3 + 1.5*IQR"), fill="white")+
+   geom_label(aes(x=0.05, y=71, label="Outlier"), fill="white")+
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+]
+
+---
+
+## Visualizing data in R
+
+- The main function we use to make plots in R is `ggplot()`
+
+- Using `ggplot()` by itself gives us the container for the chart
+```{r,echo=T,fig.height=2.5}
+data(mtcars)
+
+mtcars %>% 
+  ggplot()
+```
+
+---
+
+## Visualizing data in R
+
+- Then we use `aes()` inside `ggplot()` to tell it what's going to be on our axes
+```{r,echo=T,fig.height=3}
+mtcars %>% 
+  ggplot(aes(y=mpg, x=as.factor(cyl)))
+```
+
+---
+
+## Visualizing data in R
+
+- Then we "add" on what type of chart we'd like to do using `geom_`
+```{r,echo=T,fig.height=3}
+mtcars %>% 
+  ggplot(aes(x=as.factor(cyl))) +
+  geom_bar() # we want a bar chart so we use geom_bar()
+```
+
+---
+
+## Visualizing data in R
+
+- We can change the axis labels with `lab()`
+```{r,echo=T,fig.height=3}
+mtcars %>% 
+  ggplot(aes(x=as.factor(cyl))) +
+  geom_bar() +
+  labs(x="Number of Cylinders",y="Number of Cars")
+```
+
+---
+
+## Visualizing data in R
+
+- We can add a title with `ggtitle()`
+```{r,echo=T,fig.height=2.5}
+mtcars %>% 
+  ggplot(aes(x=as.factor(cyl))) +
+  geom_bar() +
+  labs(x="Number of Cylinders",y="Number of Cars")+
+  ggtitle("Really Neat Title")
+```
+
+---
+
+## Visualizing data in R
+
+- We can also have it fill the bars with color using a specific variable
+```{r,echo=T,fig.height=2.5}
+mtcars %>% 
+  ggplot(aes(x=as.factor(cyl), fill=as.factor(cyl))) +
+  geom_bar() +
+  labs(x="Number of Cylinders", y="Number of Cars")+
+  ggtitle("Really Neat Title")
+```

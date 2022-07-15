@@ -2,10 +2,11 @@
 title: "STEM Meets Storytelling: Day 1"
 subtitle: "Pathways to Science 2022"
 author: "Dr. Mary Ryan"
-date: "`r format(Sys.time(),'%B %d, %Y')`"
+date: "July 18, 2022"
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css
+    seal: false
     nature:
       slideNumberFormat: ""
       highlightStyle: github
@@ -19,7 +20,7 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(
   fig.width=9, fig.height=3.5, fig.retina=3,
   out.width = "100%",
-  cache = TRUE,
+  cache = FALSE,
   echo = FALSE,
   message = FALSE, 
   warning = FALSE,
@@ -28,7 +29,7 @@ knitr::opts_chunk$set(
 ```
 
 
-```{css, echo=F}
+```{css, echo=F, eval=FALSE}
 table {
   font-size: 12px;
 }
@@ -37,7 +38,7 @@ table {
 ```{r load libraries, include=FALSE}
 if(!require("pacman")) install.packages("pacman")
 
-p_load(DT,patchwork,latex2exp,xaringanExtra,xaringanthemer,RColorBrewer)
+p_load(DT,patchwork,latex2exp,xaringanExtra,xaringanthemer,RColorBrewer,countdown)
 ```
 
 ```{r xaringan-themer, include=FALSE}
@@ -51,9 +52,97 @@ style_duo_accent(
 )
 ```
 
+```{r xaringan-editable, echo=FALSE}
+xaringanExtra::use_editable(expires = 14)
+```
+
+background-image: linear-gradient(to bottom, rgba(255,255,255,0)0%, rgba(255,255,255,0.2)10%, rgba(255,255,255,1)100%), url("https://ysm-res.cloudinary.com/image/upload/w_850/c_scale,e_blur:1700,u_v1:websites4:live-prod:ysph:about-school-of-public-health:communications-public-relations:photo-galleries:history:Yale-resized_74630_49441_v9,w_850,h_576/v1/websites4/live-prod/ysph/about-school-of-public-health/communications-public-relations/photo-galleries/history/Yale-resized_74630_49441_v9.JPG")
+background-size: cover
+
+
+class: bottom
+
+.pull-left[
+
+<br>
+# STEM Meets Storytelling: Day 1
+### Pathways to Science 2022
+
+]
+
+.right[
+
+<br>
+<br>
+<br>
+<br>
+<br>
+### Dr. Mary Ryan
+### July 18, 2022
+
+]
+
+---
+
+## One thing to learn today
+
+
+<br>
+<br>
+<br>
+<br>
+.center[
+### Data are made up of observations, variables, and values
+]
+
+
+---
+
 ## What is data?
 
+.pull-left[
+
+.can-edit.key-likes[
 - 
+]
+
+]
+
+---
+
+## What is data?
+
+.pull-right[
+
+- A collection of information, facts, or observations for reference or analysis
+
+
+]
+
+---
+
+## What is data?
+
+.pull-right[
+
+- A collection of information, facts, or observations for reference or analysis
+
+- Usually about multiple subjects, events, time periods, circumstances, etc.
+
+]
+
+---
+
+## What is data?
+
+.pull-right[
+
+- A collection of information, facts, or observations for reference or analysis
+
+- Usually about multiple subjects, events, time periods, circumstances, etc.
+
+- If you record it, and it provides knowledge about something, it's probably data!
+]
 
 ---
 
@@ -115,6 +204,7 @@ style_duo_accent(
 
 ## Activity!
 
+
 - Groups of 2 or 3
 
 - Gather data about your group members
@@ -125,7 +215,7 @@ style_duo_accent(
   
   - What's their favorite food?
   
-  - What are their hobbies?
+  - What is their favorite hobby?
   
   - What school do they go to?
   
@@ -135,9 +225,11 @@ style_duo_accent(
 
 - Which questions give you *quantitative* answers? Which ones give you *qualitative* answers?
 
+`r countdown(minutes = 5, warn_when=60, top="33%", right="20%")`
+
 ---
 
-## Empirical Data vs Anecdotes
+## Empirical data vs anecdotes
 
 .pull-left[
 
@@ -159,11 +251,19 @@ style_duo_accent(
 
 ---
 
-## Public Data
+## Public data
 
 - Much data is collected and used privately or for a price
 
   - Companies
+  
+  - Example: Nielsen TV ratings data
+    
+      - Asks people to install device on their TV to track what they watch, when, and for how long
+    
+      - Pays people for participating
+    
+      - Makes companies/people pay to access data
   
 - Some data is public, though
 
@@ -171,8 +271,9 @@ style_duo_accent(
 
 ---
 
-## Public Data
+## Public data
 
+.pull-left[
 - Federal public data sources
 
   - U.S. Census Bureau/American Community Survey
@@ -182,7 +283,9 @@ style_duo_accent(
   - National Center for Education Statistics
   
   - Environmental Protection Agency
-  
+]
+
+.pull-right[  
 - State-level public data sources
 
   - CT Department of Transportation/DMV
@@ -197,46 +300,6 @@ style_duo_accent(
   
   - [DataHaven](https://www.ctdatahaven.org/)
   
----
-
-## Public Data
-
-- Not all public data is easy to access/available on the internet
-
-  - Old paper records not digitized
-  
-  - Too expensive to put in one big place
-
-- Different states have different "open records" or "open meeting" laws - AKA "sunshine" laws
-
-  - Who can ask for access to what data for what reasons
-
-- Connecticut Freedom of Information Act
-
-  - Any recorded data/information relating to the conduct of the public’s business prepared, owned, used, received, or retained by a public agency, or to which a public agency is entitled to receive a copy by law or contract
-
-  - Anyone may request public records - no reason needed
-  
-  - No restrictions on the use of the records
-  
----
-
-## Data to tell community stories
-
-.pull-left[
-
-- Black Snow: Big Sugar’s Burning Problem via The Palm Beach Post
-
-  - [https://projects.propublica.org/black-snow/](https://projects.propublica.org/black-snow/)
-  
-  - Collect own air quality measurements to check claims by local sugar company that sugarcane burning is not a threat to public health
-
-]
-  
-    
-.pull-right[
-![](sugarcane-pbp.png)
-
 ]
 
 ---
@@ -249,7 +312,7 @@ style_duo_accent(
 
   - [https://apps.bostonglobe.com/metro/investigations/spotlight/2020/09/last-words/](https://apps.bostonglobe.com/metro/investigations/spotlight/2020/09/last-words/)
   
-  - Using data from death certificates and surveys to show how race and income determine 
+  - Using data from death certificates and surveys to show how race and income determine:
     
     - how and why Massachusetts residents die
     
@@ -288,6 +351,8 @@ style_duo_accent(
 
   - Difficult to see patterns
   
+  - Also not always sure if data is giving us the **full context** of the situation
+  
 - Need to summarize to get the big picture
 
 - Computers can help us keep track of lots of data
@@ -304,7 +369,7 @@ style_duo_accent(
 
   - New code is created/edited by users and given without cost to other users
   
-- Makes it easy to *reproduce* what we do to the data
+- Makes it easy to **reproduce** what we do to the data
 
 ]
 
@@ -313,3 +378,51 @@ style_duo_accent(
 ![](Rlogo.svg)
 
 ]
+
+--
+
+**We'll be using this on [RStudio Cloud](https://rstudio.cloud/) : [https://rstudio.cloud/](https://rstudio.cloud/)**
+
+---
+
+<!-- --- -->
+
+<!-- ## Public data -->
+
+<!-- - Not all public data is easy to access/available on the internet -->
+
+<!--   - Old paper records not digitized -->
+
+<!--   - Too expensive to put in one big place -->
+
+<!-- - Different states have different "open records" or "open meeting" laws - AKA "sunshine" laws -->
+
+<!--   - Who can ask for access to what data for what reasons -->
+
+<!-- - Connecticut Freedom of Information Act -->
+
+<!--   - Any recorded data/information relating to the conduct of the public’s business prepared, owned, used, received, or retained by a public agency, or to which a public agency is entitled to receive a copy by law or contract -->
+
+<!--   - Anyone may request public records - no reason needed -->
+
+<!--   - No restrictions on the use of the records -->
+  
+<!-- --- -->
+
+<!-- ## Data to tell community stories -->
+
+<!-- .pull-left[ -->
+
+<!-- - Black Snow: Big Sugar’s Burning Problem via The Palm Beach Post -->
+
+<!--   - [https://projects.propublica.org/black-snow/](https://projects.propublica.org/black-snow/) -->
+
+<!--   - Collect own air quality measurements to check claims by local sugar company that sugarcane burning is not a threat to public health -->
+
+<!-- ] -->
+
+
+<!-- .pull-right[ -->
+<!-- ![](sugarcane-pbp.png) -->
+
+<!-- ] -->
