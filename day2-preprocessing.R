@@ -1,4 +1,5 @@
 library(readxl)
+library(janitor)
 
 # cancer #
 cancer1014 <- read_excel("./PTS2022-data/cancer-incidence-ageAdjusted-CTtown-bySite-201014.xlsx", sheet = "All sites")
@@ -97,3 +98,6 @@ cancer1014 <- cancer1014 %>%
 # Q4 #
 cancer1014 <- cancer1014 %>% 
   mutate(number_of_cases = as.integer(number_of_cases))
+
+# Q5 #
+unique(cancer1014$town)

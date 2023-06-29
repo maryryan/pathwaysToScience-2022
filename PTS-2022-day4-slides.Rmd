@@ -39,6 +39,7 @@ table {
 if(!require("pacman")) install.packages("pacman")
 
 p_load(DT,patchwork,latex2exp,xaringanExtra,xaringanthemer,RColorBrewer,janitor,countdown)
+data(mpg)
 ```
 
 ```{r xaringan-themer, include=FALSE}
@@ -98,6 +99,31 @@ class: bottom
 
 ---
 
+## Review: coding
+
+- We use `summarize()` to put functions inside to summarize specific variables
+
+```{r example, echo=T}
+mpg %>% 
+  summarize( number_observations=n(), min_hwy=min(hwy), max_hwy=max(hwy), mean_hwy=mean(hwy))
+
+```
+
+---
+
+## Review: coding
+
+- We use `group_by()` before `summarize()` to find summary measures for each group in a variable
+
+```{r example2, echo=T}
+mpg %>% 
+  group_by(class) %>% 
+  summarize( number_observations=n(), min_hwy=min(hwy), max_hwy=max(hwy), mean_hwy=mean(hwy))
+
+```
+
+---
+
 ## Getting the big picture
 
 - Calculating summary statistics can be very helpful for getting the big picture of the entire dataset
@@ -131,8 +157,6 @@ class: bottom
   - Line charts
   
   - Scatter plots
-  
-  - Box plots
   
 ---
 
@@ -176,22 +200,6 @@ survive %>%
 
 ---
 
-## Stacked bar chart
-
-- Used with 2 categorical variables
-
-  - i.e., types of issues and severity of issue
-  
-- One category goes on one axis
-
-- Percentage goes on other axis
-
-- Total bar height will always go up to 100%
-  
-  - Bar will be divided into percentages based on 2nd categorical variable
-  
----
-
 # Pie charts
 
 .pull-left[
@@ -230,7 +238,45 @@ starwars.count %>%
 
 - Which is easier to read?
 
---
+```{r compare, echo=FALSE, message=FALSE, fig.height=4}
+# starwars.count <- starwars %>% 
+#    group_by(sex) %>% 
+#    summarize(count = n()) %>% 
+#    dplyr::filter(!(is.na(sex)))
+library(patchwork)
+
+starwars.pi <- starwars.count %>% 
+   ggplot(aes(x="", y=count, fill=sex))+
+   geom_bar(width = 1, stat = "identity", color="white")+
+   coord_polar("y", start=0)+
+   #geom_text(size=6, aes(label = paste0(round((count/sum(starwars.count[,2]))*100), "%")), position = position_stack(vjust = 0.6), color="white")+
+   ggtitle("Sex of characters in Star Wars movies")+
+   theme(plot.title = element_text(size=70),
+         legend.text = element_text(size=22),
+         legend.title = element_text(size=22))+
+   theme_void()
+
+starwars.bar <- starwars.count %>% 
+   arrange(desc(count)) %>% 
+   ggplot(aes(x="", fill=sex))+
+   geom_bar(aes(y=(count/sum(count))*100),stat = "identity", position="dodge")+
+   # coord_polar("y", start=0)+
+   # geom_text(size=6, aes(label = paste0(round((count/sum(starwars.count[,2]))*100), "%")), position = position_stack(vjust = 0.6), color="white")+
+   ggtitle("Sex of characters in Star Wars movies")+
+  labs(x="",
+       y="Percentage (%)")+
+   theme(plot.title = element_text(size=70),
+         legend.text = element_text(size=22),
+         legend.title = element_text(size=22))+
+   theme_minimal()
+
+(starwars.bar | starwars.pi)
+
+```
+
+---
+
+## Pie vs bar
 
 .center[
 <img src="https://images.squarespace-cdn.com/content/56713bf4dc5cb41142f28d1f/1450306657208-N3NFCZECC1X5Y7LKZXNS/devourThePie3.gif?content-type=image%2Fgif", width="600"/>
@@ -291,26 +337,156 @@ starwars.count %>%
 
 ---
 
-## Boxplot
+## Visualizing data in R
 
-.pull-left[
-- Similar to histogram - used to look at range/shape of quantitative variable
+- The main function we use to make plots in R is `ggplot()`
 
-- Bottom line of box is 1st quartile
+- Using `ggplot()` by itself gives us the container for the chart
+```{r,echo=T,fig.height=2.5}
+data(mpg)
 
-- Top line of box is 3rd quartile
+mpg %>% 
+  ggplot()
+```
 
-- Line in middle of box is median
+---
 
-- "Whiskers" extend to the minimum and maximum
+## Visualizing data in R
+
+- Then we use `aes()` inside `ggplot()` to tell it what's going to be on our axes
+```{r,echo=T,fig.height=3}
+mpg %>% 
+  ggplot(aes(x=as.factor(cyl)))
+```
+
+---
+
+## Visualizing data in R
+
+- Then we "add" on what type of chart we'd like to do using `geom_()`
+```{r,echo=T,fig.height=3}
+mpg %>% 
+  ggplot(aes(x=as.factor(cyl))) +
+  geom_bar() # we want a bar chart so we use geom_bar()
+```
+
+- `geom_bar()` makes bar charts
+
+- `geom_histogram()` makes histograms
+
+- `geom_point()` makes scatter plots
+
+- `geom_line()` makes line plots
+
+---
+
+## Visualizing data in R
+
+- We can change the axis labels with `lab()`
+```{r,echo=T,fig.height=3}
+mpg %>% 
+  ggplot(aes(x=as.factor(cyl))) +
+  geom_bar() +
+  labs(x="Number of Cylinders",y="Number of Cars")
+```
+
+---
+
+## Visualizing data in R
+
+- We can add a title with `ggtitle()`
+```{r,echo=T,fig.height=2.5}
+mpg %>% 
+  ggplot(aes(x=as.factor(cyl))) +
+  geom_bar() +
+  labs(x="Number of Cylinders",y="Number of Cars")+
+  ggtitle("Really Neat Title")
+```
+
+---
+
+## Visualizing data in R
+
+- We can also have it **fill** the bars with color using a specific variable
+```{r,echo=T,fig.height=2.5}
+mpg %>% 
+  ggplot(aes(x=as.factor(cyl), fill=as.factor(cyl))) +
+  geom_bar() +
+  labs(x="Number of Cylinders", y="Number of Cars")+
+  ggtitle("Really Neat Title")
+```
+
+---
+
+## Some quirks: bar plots in R
+
+- If you want to use an existing variable as the y-axis for a bar plot (otherwise it will just use number of observations):
+
+```{r,echo=T,fig.height=2.5}
+mpg %>% 
+  group_by(cyl) %>% 
+  summarize(mean=mean(cty)) %>% 
+  ggplot(aes(x=as.factor(cyl), y=mean)) +
+  {{geom_bar(stat="identity")}} # this tells R you don't want it to use the number of observations as y-axis
+```
+
+---
+
+## Some quirks: line plots in R
+
+- Line plots always needs something for the `group` argument
+
+  - If your plot has multiple lines for a different category in a variable, you would set `group=variable`
+
+```{r,echo=T,fig.height=2.5}
+mpg %>% 
+  group_by(cyl,class) %>% 
+  summarize(mean=mean(cty)) %>% 
+  ggplot(aes(x=cyl, y=mean, group=class, color=class)) +
+  geom_line()
+```
+
+---
+
+## Some quirks: line plots in R
+
+- Line plots always needs something for the `group` argument
+
+  <!-- - If your plot has multiple lines for a different category in a variable, you would set `group=variable` -->
   
-  - Sometimes, if there are observations really far from the 1st and 3rd quartiles, the lines extend to the "outlier fence" and then dots show outlier observations
+  - If your plot only has 1 line, just set `group=1`
   
-- Easy to compare a quantitative and categorical variable by making a separate box for quantitative observations in each category
-]
+```{r,echo=T,fig.height=2.5}
+mpg %>% 
+  group_by(cyl) %>% 
+  summarize(mean=mean(cty)) %>% 
+  ggplot(aes(x=cyl, y=mean, group=1)) +
+  geom_line()
+```
 
-.pull-right[
-```{r boxplot, fig.height=7}
+---
+<!-- --- -->
+
+<!-- ## Boxplot -->
+
+<!-- .pull-left[ -->
+<!-- - Similar to histogram - used to look at range/shape of quantitative variable -->
+
+<!-- - Bottom line of box is 1st quartile -->
+
+<!-- - Top line of box is 3rd quartile -->
+
+<!-- - Line in middle of box is median -->
+
+<!-- - "Whiskers" extend to the minimum and maximum -->
+
+<!--   - Sometimes, if there are observations really far from the 1st and 3rd quartiles, the lines extend to the "outlier fence" and then dots show outlier observations -->
+
+<!-- - Easy to compare a quantitative and categorical variable by making a separate box for quantitative observations in each category -->
+<!-- ] -->
+
+<!-- .pull-right[ -->
+```{r boxplot, fig.height=7,eval=FALSE}
 library(titanic)
 data(titanic_train)
 
@@ -335,77 +511,4 @@ p_tit +
         axis.text.x=element_blank(),
         axis.ticks.x=element_blank())
 ```
-]
-
----
-
-## Visualizing data in R
-
-- The main function we use to make plots in R is `ggplot()`
-
-- Using `ggplot()` by itself gives us the container for the chart
-```{r,echo=T,fig.height=2.5}
-data(mtcars)
-
-mtcars %>% 
-  ggplot()
-```
-
----
-
-## Visualizing data in R
-
-- Then we use `aes()` inside `ggplot()` to tell it what's going to be on our axes
-```{r,echo=T,fig.height=3}
-mtcars %>% 
-  ggplot(aes(y=mpg, x=as.factor(cyl)))
-```
-
----
-
-## Visualizing data in R
-
-- Then we "add" on what type of chart we'd like to do using `geom_`
-```{r,echo=T,fig.height=3}
-mtcars %>% 
-  ggplot(aes(x=as.factor(cyl))) +
-  geom_bar() # we want a bar chart so we use geom_bar()
-```
-
----
-
-## Visualizing data in R
-
-- We can change the axis labels with `lab()`
-```{r,echo=T,fig.height=3}
-mtcars %>% 
-  ggplot(aes(x=as.factor(cyl))) +
-  geom_bar() +
-  labs(x="Number of Cylinders",y="Number of Cars")
-```
-
----
-
-## Visualizing data in R
-
-- We can add a title with `ggtitle()`
-```{r,echo=T,fig.height=2.5}
-mtcars %>% 
-  ggplot(aes(x=as.factor(cyl))) +
-  geom_bar() +
-  labs(x="Number of Cylinders",y="Number of Cars")+
-  ggtitle("Really Neat Title")
-```
-
----
-
-## Visualizing data in R
-
-- We can also have it fill the bars with color using a specific variable
-```{r,echo=T,fig.height=2.5}
-mtcars %>% 
-  ggplot(aes(x=as.factor(cyl), fill=as.factor(cyl))) +
-  geom_bar() +
-  labs(x="Number of Cylinders", y="Number of Cars")+
-  ggtitle("Really Neat Title")
-```
+<!-- ] -->

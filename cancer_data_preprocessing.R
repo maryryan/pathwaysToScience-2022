@@ -24,7 +24,7 @@ litchfield_county <- c("Barkhamsted",	"Bethlehem",	"Bridgewater",	"Canaan",
 middlesex_county <- c("Chester",	"Clinton",	"Cromwell",	"Deep River",	"Durham",
                       "East Haddam",	"East Hampton",	"Essex",	"Haddam",
                       "Killingworth", "Middlefield",	"Middletown",	"Old Saybrook",
-                      "Portland")
+                      "Portland", "Westbrook")
 
 newhaven_county <- c("Ansonia",	"Beacon Falls",	"Bethany",	"Branford",	"Cheshire",
                      "Derby",	"East Haven",	"Guilford",	"Hamden",	"Madison",
@@ -70,7 +70,7 @@ cancer0812 <- cancer0812 %>%
   mutate(county = case_when(town %in% toupper(fairfield_county) ~ "FAIRFIELD",
                             town %in% toupper(hartford_county) ~ "HARTFORD",
                             town %in% toupper(litchfield_county) ~ 'LITCHFIELD',
-                            town %in% toupper(middlesex_county) ~ "MIDDESEX",
+                            town %in% toupper(middlesex_county) ~ "MIDDLESEX",
                             town %in% toupper(newhaven_county) ~ "NEW HAVEN",
                             town %in% toupper(newlondon_county) ~ "NEW LONDON",
                             town %in% toupper(tolland_county) ~ "TOLLAND",
@@ -440,6 +440,67 @@ cancer0812 <- cancer0812 %>%
 # get rid of NA rows #
 cancer0812 <- cancer0812[which(!(is.na(cancer0812$town))),]
 
+# get rid of ovary and prostate cancer, and the ALL CONNECTICUT rows #
+cancer0812 <- cancer0812 %>% 
+  dplyr::select(-c("ovary","prostate")) %>% 
+  dplyr::filter(town!="ALL CONNECTICUT",
+                population_type == "total_pop") %>% 
+  pivot_longer(!c("town","county","population_type"),
+             names_to="cancer_type",
+             values_to="number_of_cases") %>% 
+  mutate(county=ifelse(town == "CANAAN and No. CANAAN", "LITCHFIELD",county))
+
+#### 2010-2012 population ####
+pop10 <- read_excel("./PTS2022-data/2010_County-level_ASRH.xlsx")
+
+# grab the county name and the total pop #
+pop10 <- pop10[,c(1,22)]
+colnames(pop10) <- c("county","total_pop_count_10")
+pop10 <- pop10 %>%
+  na.omit() %>% 
+  mutate(county=toupper(county))
+
+pop11 <- read_excel("./PTS2022-data/2011_County-level_ASRH.xlsx")
+# grab the county name and the total pop #
+pop11 <- pop11[,c(1,22)]
+colnames(pop11) <- c("county","total_pop_count_11")
+pop11 <- pop11 %>%
+  na.omit() %>% 
+  mutate(county=toupper(county))
+
+pop12 <- read_excel("./PTS2022-data/2012_County-level_ASRH.xlsx")
+# grab the county name and the total pop #
+pop12 <- pop12[,c(1,22)]
+colnames(pop12) <- c("county","total_pop_count_12")
+pop12 <- pop12 %>%
+  na.omit() %>% 
+  mutate(county=toupper(county))
+
+
+pop1012 <- pop10 %>% 
+  left_join(pop11)
+pop1012 <- pop1012 %>% 
+  left_join(pop12)
+
+# get mean pop #
+pop1012_mean <- pop1012 %>% 
+  pivot_longer(!county,names_to="year",
+               values_to="total_pop_count") %>% 
+  group_by(county) %>% 
+  summarize(mean_pop=mean(total_pop_count))
+
+#### pop adjust 2008-2012 cancer ####
+cancer0812 <- cancer0812 %>% 
+  dplyr::select(-population_type) %>%
+  group_by(county, cancer_type) %>% 
+  summarize(county_cases=sum(number_of_cases)) %>%
+  ungroup() %>% 
+  left_join(pop1012_mean) %>% 
+  mutate(percentage_cases_in_pop = (county_cases/mean_pop)*100,
+         year_range="2008-2012")
+
+
+
 #### 2010-2014 cancer ####
 # all sites #
 cancer1014 <- read_excel("./PTS2022-data/cancer-incidence-ageAdjusted-CTtown-bySite-201014.xlsx", sheet = "All sites")
@@ -464,7 +525,7 @@ cancer1014 <- cancer1014 %>%
   mutate(county = case_when(town %in% toupper(fairfield_county) ~ "FAIRFIELD",
                             town %in% toupper(hartford_county) ~ "HARTFORD",
                             town %in% toupper(litchfield_county) ~ 'LITCHFIELD',
-                            town %in% toupper(middlesex_county) ~ "MIDDESEX",
+                            town %in% toupper(middlesex_county) ~ "MIDDLESEX",
                             town %in% toupper(newhaven_county) ~ "NEW HAVEN",
                             town %in% toupper(newlondon_county) ~ "NEW LONDON",
                             town %in% toupper(tolland_county) ~ "TOLLAND",
@@ -847,3 +908,65 @@ cancer1014 <- cancer1014 %>%
   dplyr::filter(town %in% unique(cancer1014$town)[1:170])
 # get rid of NA rows #
 cancer1014 <- cancer1014[which(!(is.na(cancer1014$town))),]
+
+# get rid of ovary and prostate cancer, and the ALL CONNECTICUT rows #
+cancer1014 <- cancer1014 %>% 
+  dplyr::select(-c("ovary","prostate")) %>% 
+  dplyr::filter(town!="ALL CONNECTICUT",
+                population_type == "total_pop")
+cancer1014 <- cancer1014 %>% 
+  pivot_longer(!c("town","county","population_type"),
+               names_to="cancer_type",
+               values_to="number_of_cases") %>% 
+  mutate(county=ifelse(town == "CANAAN and No. CANAAN", "LITCHFIELD",county))
+
+
+#### 2010-2014 population ####
+pop13 <- read_excel("./PTS2022-data/2013_County-level_ASRH.xlsx")
+# grab the county name and the total pop #
+pop13 <- pop13[,c(1,22)]
+colnames(pop13) <- c("county","total_pop_count_13")
+pop13 <- pop13 %>%
+  na.omit() %>% 
+  mutate(county=toupper(county))
+
+pop14 <- read_excel("./PTS2022-data/2014_County-level_ASRH.xlsx")
+# grab the county name and the total pop #
+pop14 <- pop14[,c(1,22)]
+colnames(pop14) <- c("county","total_pop_count_14")
+pop14 <- pop14 %>%
+  na.omit() %>% 
+  mutate(county=toupper(county))
+
+pop1014 <- pop10 %>% 
+  left_join(pop11)
+pop1014 <- pop1014 %>% 
+  left_join(pop12)
+pop1014 <- pop1014 %>% 
+  left_join(pop13)
+pop1014 <- pop1014 %>% 
+  left_join(pop14)
+
+# get mean pop #
+pop1014_mean <- pop1014 %>% 
+  pivot_longer(!county,names_to="year",
+               values_to="total_pop_count") %>% 
+  group_by(county) %>% 
+  summarize(mean_pop=mean(total_pop_count))
+
+#### pop adjust 2010-2014 cancer ####
+cancer1014 <- cancer1014 %>% 
+  dplyr::select(-population_type) %>%
+  group_by(county, cancer_type) %>% 
+  summarize(county_cases=sum(number_of_cases)) %>%
+  ungroup() %>% 
+  left_join(pop1014_mean) %>%
+  mutate(percentage_cases_in_pop = (county_cases/mean_pop)*100,
+         year_range="2010-2014")
+
+
+#### combine 2008-2012 and 2010-2014 ####
+cancer0814 <- cancer0812 %>% 
+  full_join(cancer1014)
+
+write.csv(cancer0814, "CT_cancer_200814.csv",row.names = F)

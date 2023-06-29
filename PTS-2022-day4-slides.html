@@ -6,7 +6,7 @@
     <meta name="author" content="Dr. Mary Ryan" />
     <meta name="date" content="2022-07-20" />
     <script src="PTS-2022-day4-slides_files/header-attrs/header-attrs.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x07694d411c34ef6b09e7717b379bf35","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xc21b2c518c948b38d2a9b96d6221069","expires":1}</script>
     <script src="PTS-2022-day4-slides_files/himalaya/himalaya.js"></script>
     <script src="PTS-2022-day4-slides_files/js-cookie/js.cookie.js"></script>
     <link href="PTS-2022-day4-slides_files/editable/editable.css" rel="stylesheet" />
@@ -70,6 +70,51 @@ class: bottom
 
 ---
 
+## Review: coding
+
+- We use `summarize()` to put functions inside to summarize specific variables
+
+
+```r
+mpg %&gt;% 
+  summarize( number_observations=n(), min_hwy=min(hwy), max_hwy=max(hwy), mean_hwy=mean(hwy))
+```
+
+```
+## # A tibble: 1 x 4
+##   number_observations min_hwy max_hwy mean_hwy
+##                 &lt;int&gt;   &lt;int&gt;   &lt;int&gt;    &lt;dbl&gt;
+## 1                 234      12      44     23.4
+```
+
+---
+
+## Review: coding
+
+- We use `group_by()` before `summarize()` to find summary measures for each group in a variable
+
+
+```r
+mpg %&gt;% 
+  group_by(class) %&gt;% 
+  summarize( number_observations=n(), min_hwy=min(hwy), max_hwy=max(hwy), mean_hwy=mean(hwy))
+```
+
+```
+## # A tibble: 7 x 5
+##   class      number_observations min_hwy max_hwy mean_hwy
+##   &lt;chr&gt;                    &lt;int&gt;   &lt;int&gt;   &lt;int&gt;    &lt;dbl&gt;
+## 1 2seater                      5      23      26     24.8
+## 2 compact                     47      23      44     28.3
+## 3 midsize                     41      23      32     27.3
+## 4 minivan                     11      17      24     22.4
+## 5 pickup                      33      12      22     16.9
+## 6 subcompact                  35      20      44     28.1
+## 7 suv                         62      12      27     18.1
+```
+
+---
+
 ## Getting the big picture
 
 - Calculating summary statistics can be very helpful for getting the big picture of the entire dataset
@@ -104,8 +149,6 @@ class: bottom
   
   - Scatter plots
   
-  - Box plots
-  
 ---
 
 ## Bar chart
@@ -122,22 +165,6 @@ class: bottom
 &lt;img src="PTS-2022-day4-slides_files/figure-html/bar-1.png" width="100%" /&gt;
 ]
 
----
-
-## Stacked bar chart
-
-- Used with 2 categorical variables
-
-  - i.e., types of issues and severity of issue
-  
-- One category goes on one axis
-
-- Percentage goes on other axis
-
-- Total bar height will always go up to 100%
-  
-  - Bar will be divided into percentages based on 2nd categorical variable
-  
 ---
 
 # Pie charts
@@ -162,7 +189,11 @@ class: bottom
 
 - Which is easier to read?
 
---
+&lt;img src="PTS-2022-day4-slides_files/figure-html/compare-1.png" width="100%" /&gt;
+
+---
+
+## Pie vs bar
 
 .center[
 &lt;img src="https://images.squarespace-cdn.com/content/56713bf4dc5cb41142f28d1f/1450306657208-N3NFCZECC1X5Y7LKZXNS/devourThePie3.gif?content-type=image%2Fgif", width="600"/&gt;
@@ -223,30 +254,6 @@ class: bottom
 
 ---
 
-## Boxplot
-
-.pull-left[
-- Similar to histogram - used to look at range/shape of quantitative variable
-
-- Bottom line of box is 1st quartile
-
-- Top line of box is 3rd quartile
-
-- Line in middle of box is median
-
-- "Whiskers" extend to the minimum and maximum
-  
-  - Sometimes, if there are observations really far from the 1st and 3rd quartiles, the lines extend to the "outlier fence" and then dots show outlier observations
-  
-- Easy to compare a quantitative and categorical variable by making a separate box for quantitative observations in each category
-]
-
-.pull-right[
-&lt;img src="PTS-2022-day4-slides_files/figure-html/boxplot-1.png" width="100%" /&gt;
-]
-
----
-
 ## Visualizing data in R
 
 - The main function we use to make plots in R is `ggplot()`
@@ -254,9 +261,9 @@ class: bottom
 - Using `ggplot()` by itself gives us the container for the chart
 
 ```r
-data(mtcars)
+data(mpg)
 
-mtcars %&gt;% 
+mpg %&gt;% 
   ggplot()
 ```
 
@@ -269,8 +276,8 @@ mtcars %&gt;%
 - Then we use `aes()` inside `ggplot()` to tell it what's going to be on our axes
 
 ```r
-mtcars %&gt;% 
-  ggplot(aes(y=mpg, x=as.factor(cyl)))
+mpg %&gt;% 
+  ggplot(aes(x=as.factor(cyl)))
 ```
 
 &lt;img src="PTS-2022-day4-slides_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
@@ -279,15 +286,23 @@ mtcars %&gt;%
 
 ## Visualizing data in R
 
-- Then we "add" on what type of chart we'd like to do using `geom_`
+- Then we "add" on what type of chart we'd like to do using `geom_()`
 
 ```r
-mtcars %&gt;% 
+mpg %&gt;% 
   ggplot(aes(x=as.factor(cyl))) +
   geom_bar() # we want a bar chart so we use geom_bar()
 ```
 
 &lt;img src="PTS-2022-day4-slides_files/figure-html/unnamed-chunk-4-1.png" width="100%" /&gt;
+
+- `geom_bar()` makes bar charts
+
+- `geom_histogram()` makes histograms
+
+- `geom_point()` makes scatter plots
+
+- `geom_line()` makes line plots
 
 ---
 
@@ -296,7 +311,7 @@ mtcars %&gt;%
 - We can change the axis labels with `lab()`
 
 ```r
-mtcars %&gt;% 
+mpg %&gt;% 
   ggplot(aes(x=as.factor(cyl))) +
   geom_bar() +
   labs(x="Number of Cylinders",y="Number of Cars")
@@ -311,7 +326,7 @@ mtcars %&gt;%
 - We can add a title with `ggtitle()`
 
 ```r
-mtcars %&gt;% 
+mpg %&gt;% 
   ggplot(aes(x=as.factor(cyl))) +
   geom_bar() +
   labs(x="Number of Cylinders",y="Number of Cars")+
@@ -324,10 +339,10 @@ mtcars %&gt;%
 
 ## Visualizing data in R
 
-- We can also have it fill the bars with color using a specific variable
+- We can also have it **fill** the bars with color using a specific variable
 
 ```r
-mtcars %&gt;% 
+mpg %&gt;% 
   ggplot(aes(x=as.factor(cyl), fill=as.factor(cyl))) +
   geom_bar() +
   labs(x="Number of Cylinders", y="Number of Cars")+
@@ -335,6 +350,88 @@ mtcars %&gt;%
 ```
 
 &lt;img src="PTS-2022-day4-slides_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
+
+---
+
+## Some quirks: bar plots in R
+
+- If you want to use an existing variable as the y-axis for a bar plot (otherwise it will just use number of observations):
+
+
+```r
+mpg %&gt;% 
+  group_by(cyl) %&gt;% 
+  summarize(mean=mean(cty)) %&gt;% 
+  ggplot(aes(x=as.factor(cyl), y=mean)) +
+  {{geom_bar(stat="identity")}} # this tells R you don't want it to use the number of observations as y-axis
+```
+
+&lt;img src="PTS-2022-day4-slides_files/figure-html/unnamed-chunk-8-1.png" width="100%" /&gt;
+
+---
+
+## Some quirks: line plots in R
+
+- Line plots always needs something for the `group` argument
+
+  - If your plot has multiple lines for a different category in a variable, you would set `group=variable`
+
+
+```r
+mpg %&gt;% 
+  group_by(cyl,class) %&gt;% 
+  summarize(mean=mean(cty)) %&gt;% 
+  ggplot(aes(x=cyl, y=mean, group=class, color=class)) +
+  geom_line()
+```
+
+&lt;img src="PTS-2022-day4-slides_files/figure-html/unnamed-chunk-9-1.png" width="100%" /&gt;
+
+---
+
+## Some quirks: line plots in R
+
+- Line plots always needs something for the `group` argument
+
+  &lt;!-- - If your plot has multiple lines for a different category in a variable, you would set `group=variable` --&gt;
+  
+  - If your plot only has 1 line, just set `group=1`
+  
+
+```r
+mpg %&gt;% 
+  group_by(cyl) %&gt;% 
+  summarize(mean=mean(cty)) %&gt;% 
+  ggplot(aes(x=cyl, y=mean, group=1)) +
+  geom_line()
+```
+
+&lt;img src="PTS-2022-day4-slides_files/figure-html/unnamed-chunk-10-1.png" width="100%" /&gt;
+
+---
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Boxplot --&gt;
+
+&lt;!-- .pull-left[ --&gt;
+&lt;!-- - Similar to histogram - used to look at range/shape of quantitative variable --&gt;
+
+&lt;!-- - Bottom line of box is 1st quartile --&gt;
+
+&lt;!-- - Top line of box is 3rd quartile --&gt;
+
+&lt;!-- - Line in middle of box is median --&gt;
+
+&lt;!-- - "Whiskers" extend to the minimum and maximum --&gt;
+
+&lt;!--   - Sometimes, if there are observations really far from the 1st and 3rd quartiles, the lines extend to the "outlier fence" and then dots show outlier observations --&gt;
+
+&lt;!-- - Easy to compare a quantitative and categorical variable by making a separate box for quantitative observations in each category --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right[ --&gt;
+
+&lt;!-- ] --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -4,9 +4,21 @@
 #           Day 4            #
 ##############################
 
-## Today we will keep looking at the EPA dataset on chemicals releases in     ##
-## Connecticut and Eastern New York that we were working on yesterday.        ##
-#https://edap.epa.gov/public/extensions/EasyRSEI/EasyRSEI.html
+## Today we will keep looking at the EPA dataset on chemicals released into   ##
+##the environment by companies in Connecticut and Eastern New York.           ##
+
+## Every time a factory or facility releases chemicals into the environment,  ##
+## the EPA creates a score that accounts for factors like how much was        ##
+## released, the size and location of the exposed population, and the         ##
+## chemical's toxicity. Higher scores mean there is a higher potential for    ##
+## impact on the environment and public health. If one chemical release has a ##
+## score that is 5 times larger than another chemical release, then the       ##
+## potential for risk is 5 times greater in the first release.                ##
+
+## 0. TO START, RUN THE FOLLOWING CODE:                                       ##
+library(tidyverse)
+
+CTpollution <- read.csv("CTpollution_clean.csv")
 
 ## 1. Make a bar chart showing the total number of reports in the dataset for ##
 ##    each county. Which county has the most reports?                         ##
@@ -18,16 +30,19 @@
 ##    Are the top 5 industry sectors for mean RSEI the same as the sectors    ##
 ##    the sectors with the largest bars we saw in the last graph?             ##
 ##                                                                            ##
-##    HINT: you can order a summary table from largest mean to smallest by    ##
+##    HINT 1: you can order a summary table from largest mean to smallest by  ##
 ##    adding the following code after your summary table:                     ##
-##        arrange(desc(mean)) %>%                                             ##
-##        slice(1:5)                                                          ##
+##        arrange(desc(mean))                                                 ##
+##    HINT 2: you'll want to pipe your arranged summary table into a plot     ##
+##    here##
+
 
 ## 4a. Now we want to see how mean RSEI scores change over time for the whole ##
 ##    Connecticut/Eastern New York region. What type of graph would be most   ##
 ##    appropriate for this?
 
 ## 4b. Make the graph you identified in 4a. Describe what you see.            ##
+##     HINT 1: make sure you set group=1                                      ##
 
 ## 5. Let's make the same graph, but using median RSEI scores instead of mean.##
 ##    Describe what you see. Does this look the same or different than the    ##
@@ -36,6 +51,7 @@
 ## 6. Make a graph that shows how the mean RSEI score for each county changes ##
 ##    over time. Describe what you see. Are there counties with dramatic      ##
 ##    changes? Counties that are always higher or lower than others?          ##
+##    HINT 1: make sure you set group=county                                  ##
 
 
 

@@ -28,12 +28,16 @@
 ##            population is a different row.                                  ##
 
 ## 3. You should now have 3 columns/variables describing the town, the type of##
-##    population, and the number of cancer cases. The observations in the     ##
+##    population, and the number of cancer cases. The values in the           ##
 ##    population variable are messy though. Use the mutate() function and the ##
 ##    case_when() function to clean up the population labels.                 ##
 ##                                                                            ##
-##    HINT: Instead of "number_of_cases_total_pop", what would be a shorter,  ##
+##    HINT 1: Instead of "number_of_cases_total_pop", what would be a shorter,##
 ##          easier label?                                                     ##
+##    HINT 2: Remember, inside case_when() you want to have                   ##
+##            "IF_CONDITION ~ THEN_VALUE". So if the population label is      ##
+##            equal to some messy label, what shorter/easier label would you  ##
+##            like to replace it with?                                        ##
 
 ## 4. The observations in the number of cancer cases variables show up as     ##
 ##    characters or words (the column has <chr> under the name) when we would ##
@@ -43,6 +47,10 @@
 ##    HINT: if you name the new variable in your mutate the same as your old  ##
 ##          variable, you'll simply replace that variable with the updated    ##
 ##          variable from your mutate.                                        ##
+
+## 5. Use the unique() function on the town variable. Are there any values   ##
+##     that look like they shouldn't be there?                                ##
+
 
 
 

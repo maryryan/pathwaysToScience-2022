@@ -138,7 +138,41 @@ class: bottom
 
 ---
 
+## Review: coding
+
+- Can assign a value to a variable using `<-`
+
+```{r example review, eval=F,echo=T}
+x <- 2
+```
+
+- Words can become values if we put them in `"quotes"`; the computer will think words/letters not in quotes are variables and that it should be looking for a value assigned to it
+
+```{r example review2, echo=T, error=T}
+y <- "cat"
+y
+
+z <- dog
+```
+
+- We can create a vector using the `c()` function
+```{r example review3, eval=F, echo=T}
+vector <- c(1,2,3)
+```
+
+---
+
 ## Data needs structure
+
+- Do you organize your class notes? The files on your computer? The photos on your phone? Why?
+
+.can-edit.key-organize[
+- 
+]
+
+--
+
+- Making sure observations, variables, and values are stored in a **consistent** way makes it easier for us to find data points later because we know where to look for them!
 
 ---
 
@@ -203,7 +237,79 @@ grades.df %>%
   - Some steps definitely need to come before others (mix your ingredients vs. baking)
   
   - But other steps it doesn't (really) matter if you do one before the other (adding vanilla vs. adding oil)
+
+---
+
+## Quick note: the pipe %>% 
+
+- Sometimes we want to do several functions at once
+
+- But this is really hard to read:
+```{r example1, eval=FALSE, echo=T}
+function1( function2( function3( data ) ) )
+```
+
+  - What function are we performing first? Do we have enough parentheses? Who knows!
   
+--
+
+- The pipe %>% allows us to take the output from one function and make it the input of the next function:
+```{r example, eval=FALSE, echo=T}
+data %>% 
+function1() %>% 
+function2() %>% 
+function3()
+```
+  
+  - Easy to see that first we perform `function1()` on the original data, then plug that output into `function2()`, then plug that output into `function3()`
+
+---
+
+## Step 1: general tidying
+
+- We use `glimpse()` to get an idea of:
+    
+    - how big our dataset is (rows and columns)
+    
+    - what our column names are
+    
+    - examples of what values in the dataset look like
+
+--
+
+- We use `clean_names()` to make sure the column names are consistent
+
+  - Makes sure everything starts with a lowercase letter and puts an underscore _ between words
+  
+--
+
+- We use `pivot_longer()` or `pivot_wider()` to makes sure every column is a variable and every row is an observation
+
+  - `pivot_longer()` takes a bunch of columns and collapses them into 2: one for the old column names, one for their values
+  
+  - `pivot_wider()` takes 2 columns (one with names and one with values) and expands them into many columns
+  
+  
+---
+
+## Step 2: data altering
+
+- We use `arrange()` if you need observations in ascending descending order to manipulate them
+
+- We use `mutate()` to create new variables
+
+  - i.e., If we wanted a new variable that sums together 2 existing variables
+  
+---
+
+## Step 3: get rid of the junk
+
+- We use `select()` to keep the variables we want and get rid of the variables we don't need anymore
+
+- We use `filter()` to keep the rows/observations we want and get rid of the ones we don't
+
+  - i.e., If we wanted to get rid of rows with missing values
+
 ---
 
 ## Recipe for tidy data

@@ -205,7 +205,7 @@ class: bottom
 ## Activity!
 
 
-- Groups of 2 or 3
+- Groups of 3 or 4
 
 - Gather data about your group members
 
@@ -314,9 +314,9 @@ class: bottom
   
   - Using data from death certificates and surveys to show how race and income determine:
     
-    - how and why Massachusetts residents die
+      - how and why Massachusetts residents die
     
-    - how those factors affect the quality/length of life and access to care
+      - how those factors affect the quality/length of life and access to care
 
 ]
 
@@ -382,6 +382,29 @@ class: bottom
 --
 
 **We'll be using this on [RStudio Cloud](https://rstudio.cloud/) : [https://rstudio.cloud/](https://rstudio.cloud/)**
+
+
+---
+
+## Workshop overview
+
+- Overall goal: learn how to manipulate, summarize, and visualize data to uncover community narratives
+
+- Day 1: Getting comfy with R
+
+- Day 2: Getting data into a usable form
+
+- Day 3: Data summarization
+
+- Day 4: Data visualization
+
+- Day 5: Final projects (groups of 3-4)
+
+  - Summarize and visualize 1) Connecticut Environmental Protection Agency, 2) Connecticut cancer cases, and/or 3) Connecticut asthma ER visit data (can use all 3 datasets or focus on 1)
+  
+  - Must create at least 1 statistic/summary and at least 1 visualization
+  
+  - Discuss what you found in a short blog post or a TikTok
 
 ---
 

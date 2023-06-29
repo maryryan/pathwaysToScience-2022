@@ -6,7 +6,7 @@
     <meta name="author" content="Dr. Mary Ryan" />
     <meta name="date" content="2022-07-19" />
     <script src="PTS-2022-day2-slides_files/header-attrs/header-attrs.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xb400042eff24cf6a3c83fd6216ce564","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xba5fbbcb0bf4da48f0e43c2f9ba62eb","expires":1}</script>
     <script src="PTS-2022-day2-slides_files/himalaya/himalaya.js"></script>
     <script src="PTS-2022-day2-slides_files/js-cookie/js.cookie.js"></script>
     <link href="PTS-2022-day2-slides_files/editable/editable.css" rel="stylesheet" />
@@ -119,7 +119,54 @@ class: bottom
 
 ---
 
+## Review: coding
+
+- Can assign a value to a variable using `&lt;-`
+
+
+```r
+x &lt;- 2
+```
+
+- Words can become values if we put them in `"quotes"`; the computer will think words/letters not in quotes are variables and that it should be looking for a value assigned to it
+
+
+```r
+y &lt;- "cat"
+y
+```
+
+```
+## [1] "cat"
+```
+
+```r
+z &lt;- dog
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'dog' not found
+```
+
+- We can create a vector using the `c()` function
+
+```r
+vector &lt;- c(1,2,3)
+```
+
+---
+
 ## Data needs structure
+
+- Do you organize your class notes? The files on your computer? The photos on your phone? Why?
+
+.can-edit.key-organize[
+- 
+]
+
+--
+
+- Making sure observations, variables, and values are stored in a **consistent** way makes it easier for us to find data points later because we know where to look for them!
 
 ---
 
@@ -142,8 +189,8 @@ class: bottom
 
 ## What's wrong with this data?
 
-<div id="htmlwidget-7d11aaf569bc3fc121ed" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7d11aaf569bc3fc121ed">{"x":{"filter":"none","vertical":false,"data":[["1","1","1","1","2","2","2","2","3","3","3","3"],["Math","Math","Writing","Writing","Math","Math","Writing","Writing","Math","Math","Writing","Writing"],["2008","2009","2008","2009","2008","2009","2008","2009","2008","2009","2008","2009"],["15","12","22","10","12","16","13","23","11","13","17","14"],["16","13","22","14","13","14","11","20","12","11","12","9"],["19","27","24","20","25","21","29","26","22","27","23","31"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>student ID<\/th>\n      <th>testSubject<\/th>\n      <th>year<\/th>\n      <th>Fall<\/th>\n      <th>spring<\/th>\n      <th>Winter<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollY":350,"dom":"t","ordering":false,"columnDefs":[{"className":"dt-left","targets":"_all"}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ce58c358a8e114289a51" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ce58c358a8e114289a51">{"x":{"filter":"none","vertical":false,"data":[["1","1","1","1","2","2","2","2","3","3","3","3"],["Math","Math","Writing","Writing","Math","Math","Writing","Writing","Math","Math","Writing","Writing"],["2008","2009","2008","2009","2008","2009","2008","2009","2008","2009","2008","2009"],["15","12","22","10","12","16","13","23","11","13","17","14"],["16","13","22","14","13","14","11","20","12","11","12","9"],["19","27","24","20","25","21","29","26","22","27","23","31"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>student ID<\/th>\n      <th>testSubject<\/th>\n      <th>year<\/th>\n      <th>Fall<\/th>\n      <th>spring<\/th>\n      <th>Winter<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollY":350,"dom":"t","ordering":false,"columnDefs":[{"className":"dt-left","targets":"_all"}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 
 
 --
@@ -163,7 +210,81 @@ class: bottom
   - Some steps definitely need to come before others (mix your ingredients vs. baking)
   
   - But other steps it doesn't (really) matter if you do one before the other (adding vanilla vs. adding oil)
+
+---
+
+## Quick note: the pipe %&gt;% 
+
+- Sometimes we want to do several functions at once
+
+- But this is really hard to read:
+
+```r
+function1( function2( function3( data ) ) )
+```
+
+  - What function are we performing first? Do we have enough parentheses? Who knows!
   
+--
+
+- The pipe %&gt;% allows us to take the output from one function and make it the input of the next function:
+
+```r
+data %&gt;% 
+function1() %&gt;% 
+function2() %&gt;% 
+function3()
+```
+  
+  - Easy to see that first we perform `function1()` on the original data, then plug that output into `function2()`, then plug that output into `function3()`
+
+---
+
+## Step 1: general tidying
+
+- We use `glimpse()` to get an idea of:
+    
+    - how big our dataset is (rows and columns)
+    
+    - what our column names are
+    
+    - examples of what values in the dataset look like
+
+--
+
+- We use `clean_names()` to make sure the column names are consistent
+
+  - Makes sure everything starts with a lowercase letter and puts an underscore _ between words
+  
+--
+
+- We use `pivot_longer()` or `pivot_wider()` to makes sure every column is a variable and every row is an observation
+
+  - `pivot_longer()` takes a bunch of columns and collapses them into 2: one for the old column names, one for their values
+  
+  - `pivot_wider()` takes 2 columns (one with names and one with values) and expands them into many columns
+  
+  
+---
+
+## Step 2: data altering
+
+- We use `arrange()` if you need observations in ascending descending order to manipulate them
+
+- We use `mutate()` to create new variables
+
+  - i.e., If we wanted a new variable that sums together 2 existing variables
+  
+---
+
+## Step 3: get rid of the junk
+
+- We use `select()` to keep the variables we want and get rid of the variables we don't need anymore
+
+- We use `filter()` to keep the rows/observations we want and get rid of the ones we don't
+
+  - i.e., If we wanted to get rid of rows with missing values
+
 ---
 
 ## Recipe for tidy data

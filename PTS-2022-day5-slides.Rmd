@@ -1,0 +1,206 @@
+---
+title: "STEM Meets Storytelling: Day 5"
+subtitle: "Pathways to Science 2022"
+author: "Dr. Mary Ryan"
+date: "July 22, 2022"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    seal: false
+    nature:
+      slideNumberFormat: ""
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+
+```{css, echo=F, eval=FALSE}
+table {
+  font-size: 12px;
+}
+```
+
+```{r load libraries, include=FALSE}
+if(!require("pacman")) install.packages("pacman")
+
+p_load(DT,patchwork,latex2exp,xaringanExtra,xaringanthemer,RColorBrewer,countdown)
+```
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  header_font_google = google_font("Cabin", "600"),
+  text_font_google   = google_font("Noto Sans", "300", "300i"),
+  primary_color = "#0f4d92",
+  secondary_color = "#FF961C",
+  inverse_header_color = "#FFFFFF"
+)
+```
+
+```{r xaringan-editable, echo=FALSE}
+xaringanExtra::use_editable(expires = 14)
+```
+
+background-image: linear-gradient(to bottom, rgba(255,255,255,0)0%, rgba(255,255,255,0.2)10%, rgba(255,255,255,1)100%), url("https://ysm-res.cloudinary.com/image/upload/w_850/c_scale,e_blur:1700,u_v1:websites4:live-prod:ysph:about-school-of-public-health:communications-public-relations:photo-galleries:history:Yale-resized_74630_49441_v9,w_850,h_576/v1/websites4/live-prod/ysph/about-school-of-public-health/communications-public-relations/photo-galleries/history/Yale-resized_74630_49441_v9.JPG")
+background-size: cover
+
+
+class: bottom
+
+.pull-left[
+
+<br>
+# STEM Meets Storytelling: Day 5
+### Pathways to Science 2022
+
+]
+
+.right[
+
+<br>
+<br>
+<br>
+<br>
+<br>
+### Dr. Mary Ryan
+### July 22, 2022
+
+]
+
+---
+
+## One thing to learn today
+
+
+<br>
+<br>
+<br>
+<br>
+.center[
+### The total number of ER visits due to asthma (increased/decreased/stayed the same) in New Haven County between 2007 and 2019.
+]
+
+---
+
+## Telling a story
+
+- Knowing how to tell a story is an important skill for journalists and scientists alike!
+
+- Needs a **hook**, or what makes your story interesting
+
+  - Might be the question you're asking, the area/population you're asking the question about, or where you got your data from
+  
+- Needs a **beginning**, **middle**, and **end**
+
+  - Beginning: what's this story about? (what are we asking and why)
+  
+  - Middle: how did we get there? (what did we do to gather/investigate our information)
+  
+  - End: what did we learn?
+
+---
+
+## How to structure a story
+
+.pull-left[
+**Scientists**: Leaving the best for last
+
+- Question we're trying to answer and why
+
+- What population/data we're trying to use to answer the question?
+
+- What did we do to the data to try to answer the question or how did we gather the data?
+
+- What did the data tell us about our question?
+
+- Conclusion/main take away
+
+]
+
+--
+
+.pull-right[
+**Journalists**: Show them the headline first
+
+- Main take away
+
+- Question we're trying to answer and why
+
+- What population/data we're trying to use to answer the question?
+
+- What did we do to the data to try to answer the question or how did we gather the data?
+
+- What did the data tell us about our question?
+
+]
+
+---
+
+## Final Project
+
+- Today you will have access to 3 public datasets:
+
+  1. the EPA pollution/chemical release data we explored in days 3 & 4
+      
+      - It has risk scores for every chemical release from a factory that happened in 2007-2019, for any factory in CT or Eastern NY
+      
+  2. a full (clean) set of the CT cancer data we practiced tidying in day 2
+  
+      - It has the total number of cancer cases, by county, for 2 time periods: from 2008-2012 and 2010-2014
+
+  3. a set of data with the number of emergency room visits due to asthma
+  
+      - There are total visit numbers for each year from 2010-2019 for each county in CT
+
+---
+
+## Final Project
+
+- In **groups of 2-4**: explore any or all of these datasets using the skills from the past 4 days
+
+- Try and answer some sort of question or be able to tell some sort of story using at least 1 graph **and** at least 1 summary measure
+
+- Then write a short blog post/record a TikTok explaining what you found
+
+- Some question ideas are listed out at the top of your `final-project-day5.R` file if you need inspiration
+
+- We'll present our stories to each other in the last 30 minutes of the workshop!
+
+---
+
+## Moving your files!
+
+- If want to access these materials after the workshop is over:
+
+  - Next to each project there is a little icon of a moving dolly:
+  .center[
+  ![](moving-icon2.png)
+  ]
+  
+  - Click that icon and select "Your Workspace" from the window that pops up
+  
+  - Do this for all the projects
+  
+---
+
+## Getting R on our own computer
+
+- You can download and install R here: https://cran.r-project.org/
+
+- After you download R, you can downloda RStudio here: https://www.rstudio.com/products/rstudio/download/#download
+  

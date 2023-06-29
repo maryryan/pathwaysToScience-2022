@@ -39,6 +39,8 @@ table {
 if(!require("pacman")) install.packages("pacman")
 
 p_load(DT,patchwork,latex2exp,xaringanExtra,xaringanthemer,RColorBrewer,janitor,countdown)
+
+data(mpg)
 ```
 
 ```{r xaringan-themer, include=FALSE}
@@ -98,7 +100,86 @@ class: bottom
 
 ---
 
+## Review: tidy data
+
+- Data is made up of:
+
+  - Observations: The smallest unit we're collecting data on
+
+  - Variables: One of the questions we're collecting about our observation
+  
+  - Values: The answer to the question we're asking our observation
+
+.pull-left[      
+- Data is tidy when:
+
+  1. Every column is a variable
+  
+  2. Every row is an observation
+  
+  3. Every cell is a single value
+]
+
+.pull-right[
+.center[
+![](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)
+]
+]
+
+---
+
+## Review: coding
+
+- The **pipe %>%** allows us to take the output from one function and make it the input of the next function:
+```{r example, eval=FALSE, echo=T}
+data %>% 
+  function1() %>% 
+  function2() %>% 
+  function3()
+```
+
+- We use `glimpse()` to get an idea of:
+    
+  - how big our dataset is (rows and columns)
+  
+  - what our column names are
+  
+  - examples of what values in the dataset look like
+    
+- We use `mutate()` to create new variables
+```{r example2, eval=FALSE, echo=T}
+data %>% 
+  mutate( new_variable1 = function1(existing_variable1),
+          new_variable2 = function2(existing_variable2) )
+```
+
+---
+
+## Review: coding
+
+- We use `case_when()` when we want a new variable to take on some value only when an existing variable meets some criteria
+
+  - Example: We want a new variable that is 1 when `existing_variable1` equals "Yes", 0 when `existing_variable1` is anything other than "Yes"
+```{r example3, eval=FALSE, echo=T}
+data %>% 
+  mutate( new_variable1 = case_when(existing_variable1 == "Yes" ~ 1,
+                                    existing_variable1 != "Yes" ~ 0) )
+
+```
+
+---
+
+## Learning from data
+
+- When we gather data, we usually aren't that interested in the **individual** observations
+
+- We want to learn about something **bigger** that the observations are a part of
+
+---
+
 ## Data can be A Lot
+
+- Can you tell what the story this data is telling?
 
 ```{r lots o data}
 data(billboard)
@@ -213,9 +294,7 @@ What ways might you use to describe a "typical" data point?
 
   - Know how large a category is compared to all observations
 
-      - Percentages
-
-        $$\frac{\text{# observations in a category}}{\text{Total observations×100}}$$
+      - Percentages: $\frac{\text{# observations in a category}}{\text{Total observations×100}}$
 
 ---
 
@@ -223,17 +302,17 @@ What ways might you use to describe a "typical" data point?
 
 - For quantitative data, we might want to:
 
-  - Know what the smallest value of a variable is
+  - Know what the smallest value of a variable is: Minimum
 
-      - Minimum
+      - R function: `min()`
 
-  - Know what the largest value of a variable is
+  - Know what the largest value of a variable is: Maximum
 
-      - Maximum
+      - R function: `max()`
 
-  - Know the distance between the maximum and the minimum
+  - Know the distance between the maximum and the minimum: Range
       
-      - Range
+      - R function: `range()`
 
   - Know what the center of our data is...
 
@@ -257,15 +336,21 @@ What ways might you use to describe a "typical" data point?
 
 $$\bar{x} = \frac{\text{sum of data points}}{\text{# of data points}}$$
 
+  - R function: `mean()`
+
 - Median
 
   - The "exact middle" of the data
 
   - 50% of data points are below the median, 50% of data points are above the median
+  
+  - R function: `median()`
 
 - Mode
 
   - The most common value in the data
+  
+  - Doesn't have an R function! (But we'll get into visualizing this tomorrow)
 
 ---
 
@@ -281,6 +366,8 @@ $$\text{standard deviation} = \sqrt{\frac{(\text{datapoint}_1 - \bar{x})^2 + (\t
 
 - When standard deviation is **small**, the observations generally stay close to the mean
 
+- R function: `sd()`
+
 
 ---
 
@@ -293,3 +380,75 @@ $$\text{standard deviation} = \sqrt{\frac{(\text{datapoint}_1 - \bar{x})^2 + (\t
 - Can we guess what the mean class height is? The median? The standard deviation?
 
 `r countdown(minutes = 5, warn_when=60, top="10%", right="15%")`
+
+---
+
+## Summarizing in R
+
+- Can perform each of the previous summary functions on their own, but it's much easier to perform them all at once
+
+  - We use the `summarize()` function for this
+  
+```{r example4, echo=T}
+# if we want to get the number of observations, minimum, maximum, mean, and sd of city mpg #
+mpg %>% 
+  summarize( n(), min(cty), max(cty), mean(cty), sd(cty) )
+
+```
+
+---
+
+## Summarizing in R
+
+- If we want to give this summary table descriptive column names:
+```{r example5, echo=T}
+# if we want to get the number of observations, minimum, maximum, mean, and sd of city mpg #
+mpg %>% 
+  summarize( number_of_obs=n(), min=min(cty), max=max(cty), mean=mean(cty), sd=sd(cty) )
+
+```
+
+---
+
+## Summarizing in R
+
+- If there are groups in the data and we want to find summary values for each group, we can use `group_by()`
+
+```{r example 6, echo=T}
+# if we want to get the number of observations, minimum, maximum, mean, and sd of city mpg 
+# for each car class #
+mpg %>% 
+  group_by(class) %>% 
+  summarize( number_of_observations=n(), min=min(cty), max=max(cty), mean=mean(cty), sd=sd(cty) )
+
+```
+
+---
+
+## Summarizing in R
+
+- We can even use `group_by()` on multiple variables
+```{r example8, echo=T}
+# if we want to get the number of observations, minimum, maximum, mean, and sd of city mpg
+# for each car class and number of cylinders #
+mpg %>% 
+  group_by(class, cyl) %>% 
+  summarize( number_of_observations=n(), min=min(cty), max=max(cty), mean=mean(cty), sd=sd(cty) )
+
+```
+
+---
+
+## Summarizing in R
+
+- We can also use `arrange()` and `desc()` to order these summaries from smallest mean to largest mean:
+```{r example7, echo=T}
+# if we want to get the number of observations, minimum, maximum, mean, and sd of city mpg
+# for each car class and number of cylinders #
+mpg %>% 
+  group_by(class, cyl) %>% 
+  summarize( number_of_observations=n(), min=min(cty), max=max(cty), mean=mean(cty), sd=sd(cty) ) %>% 
+  arrange(desc(mean))
+
+```
+
